@@ -5,7 +5,7 @@
   <a href="https://discord.gg/uqmDfXAZe"><img src="https://img.shields.io/badge/Discord-%20KevinDe3ngineer%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
   <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0"><img src="https://img.shields.io/badge/Support-Raspberry_Pi_OS_/_Debian-yellow?style=for-the-badge" alt="Support: Raspberry Pi OS / Debian"></a>
-  <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0/blob/RELEASE.md"><img src="https://img.shields.io/badge/Release-v1.1-green?style=for-the-badge" alt="Release v1.1"></a>
+  <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0/blob/main/RELEASE.md"><img src="https://img.shields.io/badge/Release-v1.1-green?style=for-the-badge" alt="Release v1.1"></a>
 </p>
 
 PyDeploy is a Terminal CLI that is automated to turn a Python script from a GitHub Repository into a `systemd` service on your Raspberry Pi, allowing it to run continously while providing tools to monitor its status and view logs.
