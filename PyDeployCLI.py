@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import shutil
+import textwrap
 import threading
 import subprocess
 from getpass import getpass, getuser
@@ -29,9 +30,9 @@ print(f"{g}kevinde3ngineer{R} - Dedicated To Running Python Applications Continu
 
 # Selection
 while True:
-    print(f"\n{b}Py{y}Depoy{R} CLI v.1.0")
+    print(f"\n{b}Py{y}Deploy{R} CLI v.1.0")
 
-    print(f"{g}Select An Option:{R} "), print("\n[1] Control Panel"), print("[2] Set Up")
+    print(f"{g}Select An Option:{R} "), print("\n[1] Control Panel"), print("[2] Set Up"), print("[3] Quit")
     option = input(f"\n{g}-->{R} ").strip().lower()
 
     # Control Panel Option
@@ -78,59 +79,39 @@ while True:
 
         threading.Thread(target=auto_status, daemon=True).start()
 
+        # Helper Function
+        def report(result, verb, action_name, service_app):
+            if result.returncode == 0:
+                print(f"\n{g}Successfully {action_name}{R}")
+                print(f"[sudo systemctl {verb} {service_app}]")
+            else:
+                print(f"\nError: '{verb}' Failed{r}!{R}")
+                print(f"[sudo systemctl {verb} {service_app}]")
+            subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+
         # Selections
         while True:
             print(), print(status), print(select_a_control)
             choice = input(f"\n{g}--->{R} ").strip().lower()
             if choice in ("enable", "1"):
                 enable_check = subprocess.run(["sudo", "systemctl", "enable", service_app])
-                if enable_check.returncode == 0:
-                    print(f"\n{g}Successfully Enabled{R}")
-                    print("[sudo systemctl enable", service_app + "]")
-                else:
-                    print(f"\nError: Enable Failed{r}!{R}")
-                    print("[sudo systemctl enable", service_app + "]")
-                subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+                report(enable_check, "enable", "Enabled", service_app)
 
             elif choice in ("start", "2"):
                 start_check = subprocess.run(["sudo", "systemctl", "start", service_app])
-                if start_check.returncode == 0:
-                    print(f"\n{g}Successfully Started{R}")
-                    print("[sudo systemctl start", service_app + "]")
-                else:
-                    print(f"\nError: Start Failed{r}!{R}")
-                    print("[sudo systemctl start", service_app + "]")
-                subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+                report(start_check, "start", "Started", service_app)
 
             elif choice in ("disable", "3"):
                 disable_check = subprocess.run(["sudo", "systemctl", "disable", service_app])
-                if disable_check.returncode == 0:
-                    print(f"\n{g}Successfully Disabled{R}")
-                    print("[sudo systemctl disable", service_app + "]")
-                else:
-                    print(f"\nError: Disable Failed{r}!{R}")
-                    print("[sudo systemctl disable", service_app + "]")
-                subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+                report(disable_check, "disable", "Disabled", service_app)
 
             elif choice in ("stop", "4"):
                 stop_check = subprocess.run(["sudo", "systemctl", "stop", service_app])
-                if stop_check.returncode == 0:
-                    print(f"\n{g}Successfully Stopped{R}")
-                    print("[sudo systemctl stop", service_app, "]")
-                else:
-                    print(f"\nError: Stop Failed{r}!{R}")
-                    print("[sudo systemctl stop", service_app, "]")
-                subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+                report(stop_check, "stop", "Stopped", service_app)            
 
             elif choice in ("restart", "5"):
                 restart_check = subprocess.run(["sudo", "systemctl", "restart", service_app])
-                if restart_check.returncode == 0:
-                    print(f"\n{g}Successfully Restarted{R}")
-                    print("[sudo systemctl restart", service_app, "]")
-                else:
-                    print(f"\nError: Restart Failed{r}!{R}")
-                    print("[sudo systemctl restart", service_app, "]")
-                subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
+                report(restart_check, "restart", "Restarted", service_app)
 
             elif choice in ("status", "6"):
                 print(f"\n{g}Full Status:{R} ")
@@ -145,11 +126,11 @@ while True:
                 log_check.terminate()
 
             elif choice in ("quit", "q"):
-                print(f"\n{r}Exiting...{R}")
+                print("\nReturning...")
                 time.sleep(1)
                 break
             else:
-                print("\nError: invalid option!")
+                print("\nError: Invalid Option!")
 
     # Setup Option
     elif option in ("set up", "setup", "2"):
@@ -224,9 +205,9 @@ while True:
             error = result.stderr.lower()
 
             if "could not resolve host" in error:
-                print(f"\nError: check your internet connection{r}!{R}")
+                print(f"\nError: Check Your Internet Connection{r}!{R}")
             elif "repository not found" in error or "could not read username" in error:
-                print(f"\nError: Your Repository Might Be private{r}!{R}")
+                print(f"\nError: Your Repository Might Be Private{r}!{R}")
                 print(f"Security: Your Token Is Hidden When Typing{r}!{R}")
 
                 while True:
@@ -323,26 +304,27 @@ while True:
             if python_file in python_files:
                 break
             else:
-                print(f"\nError: Python file Not Found, Check For Any Typos{r}!{R}")
+                print(f"\nError: Python File Not Found, Check For Any Typos{r}!{R}")
 
         # Setting up service file
         service_name = input(f"\n{g}Service Name:{R} ")
 
         # Creating service file
-        service = f"""[Unit]
-        Description={repo_name} Python Script
-        After=multi-user.target
+        service = textwrap.dedent(f"""\
+            [Unit]
+            Description={repo_name} Python Script
+            After=multi-user.target
 
-        [Service]
-        User={getuser()}
-        WorkingDirectory={repo_path}
-        ExecStart={repo_path}/venv/bin/python3 {repo_path}/{python_file}
-        Restart=always
-        RestartSec=5
+            [Service]
+            User={getuser()}
+            WorkingDirectory={repo_path}
+            ExecStart={repo_path}/venv/bin/python3 {repo_path}/{python_file}
+            Restart=always
+            RestartSec=5
 
-        [Install]
-        WantedBy=multi-user.target
-        """
+            [Install]
+            WantedBy=multi-user.target
+        """)
         service_file = service_name + ".service"
         with open(service_file, "w") as file:
             file.write(service)
@@ -391,6 +373,7 @@ while True:
             enable = input(f"\n{g}--->{R} ").strip().lower()
 
             if enable in ("yes", "1"):
+                print("\nReturning...")
                 break
             elif enable in ("no", "2"):
                 print(f"\n{r}Exiting in 5 seconds...{R}")
@@ -398,6 +381,12 @@ while True:
                 sys.exit()
             else:
                 print(f"\nError: Invalid Option{r}!{R}")
+
+    # Quit Option
+    elif option in ("quit", "3"):
+        print(f"\n{r}Exiting...{R}")
+        time.sleep(0.2)
+        sys.exit()
 
     # Error Option
     else:
