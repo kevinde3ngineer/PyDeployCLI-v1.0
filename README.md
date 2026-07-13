@@ -1,16 +1,16 @@
 #
-![image alt](https://github.com/kevinde3ngineer/PyDeployCLI-v1.0/blob/404d16a577af98cc60bbe7e3d6495f3bbf0e9fcf/PyDeploy.png)
+![PyDeploy Logo](PyDeploy.png)
 
 <p align="center">
   <a href="https://discord.gg/uqmDfXAZe"><img src="https://img.shields.io/badge/Discord-%20KevinDe3ngineer%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
   <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0"><img src="https://img.shields.io/badge/Support-Raspberry_Pi_OS_/_Debian-yellow?style=for-the-badge" alt="Support: Raspberry Pi OS / Debian"></a>
-  <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0"><img src="https://img.shields.io/badge/Version-v1.0-green?style=for-the-badge" alt="Version v1.0"></a>
+  <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0/blob/RELEASE.md"><img src="https://img.shields.io/badge/Release-v1.1-green?style=for-the-badge" alt="Release v1.1"></a>
 </p>
 
 PyDeploy is a Terminal CLI that is automated to turn a Python script from a GitHub Repository into a `systemd` service on your Raspberry Pi, allowing it to run continously while providing tools to monitor its status and view logs.
 
-Built for one job, PyDeploy CLI is dedicated to running Python applications continuously for Raspberry PI seamlessly with `Systemd`! No more manual `venv` setup, no hand-written unit files, and no more memorizing `systemctl` flags. My official support and recommendation channel is my Discord server. Give this repo a `star` to support my work!
+Built for one job, PyDeploy CLI is dedicated to running Python applications continuously for Raspberry PI seamlessly with `Systemd`. No more manual `venv` setup, no hand-written unit files, and no more memorizing `systemctl` flags. My official support and recommendation channel is my Discord server. Give this repo a `star` to support my work!
 
 ## Features
 - Auto-installs missing dependencies; checks for `git`, `pip3`, and `venv`, and installs them if missing
@@ -38,7 +38,7 @@ sudo python3 PyDeployCLI.py
 
 Option B - One-Line Install:
 
-> Always safe to read `install.sh` before piping it to `bash`; that's true of any one-line installer, not just this one.
+> Always safe to read `install.sh` before piping it to `bash`; that's true of any one-line installer, not just this one. Always `curl` again when PyDeploy updates!
 ```bash
 curl -fsSL https://raw.githubusercontent.com/kevinde3ngineer/PyDeployCLI-v1.0/main/install.sh | bash
 ```
@@ -98,12 +98,12 @@ Set Up [2]
 - Assumes a Debian/systemd-based OS (not tested on other distros)
 - Assumes the repo is cloned into your home directory `~`; running from a different working directory during setup may cause path mismatches
 - Every control-panel action calls `sudo`, so passwordless sudo is strongly recommended to avoid repeated password prompts or hangs
-- Only tested on Raspberry Pi OS (Trixie)
+- Only tested on Raspberry Pi OS (Debian Trixie)
 - Personal access tokens are passed as command-line arguments to `git`, which may be briefly visible to other local users via process listings `ps aux`
 
 ## Note From Dev
-Thank you for checking out my project, PyDeploy. This was a passion project focused on improving my Python skills while building a way to deploy, run, and monitor Python applications on a Raspberry Pi. It took several days and about 400 lines of code with heavy use of conditionals and loops to develop, but it all worked out. I’ll likely release a more polished v2.0 in the future, so stay tuned.
+Thank you for checking out my project, PyDeploy. This was a passion project focused on improving my Python skills while building a way to deploy, run, and monitor Python applications on a Raspberry Pi. PyDeploy CLI's current release is v1.1.
 
-If you have any questions, contact me on my Discord Server.
+I’ll likely release a more polished v2.0 in the future, so stay tuned. If you have any questions, contact me on my Discord Server.
 
 
