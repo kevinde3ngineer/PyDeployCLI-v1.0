@@ -8,7 +8,7 @@
   <a href="https://github.com/kevinde3ngineer/PyDeployCLI-v1.0/blob/main/RELEASE.md"><img src="https://img.shields.io/badge/Release-v1.1-green?style=for-the-badge" alt="Release v1.1"></a>
 </p>
 
-PyDeploy is a Terminal CLI that is automated to turn a Python script from a GitHub Repository into a `systemd` service on your Raspberry Pi, allowing it to run continously while providing tools to monitor its status and view logs.
+PyDeploy is a Terminal CLI that is automated to turn a Python script from a GitHub Repository into a `systemd` service on your Raspberry Pi, allowing it to run continously while providing tools to monitor its status and view logs. This version is a lightweight alternative to Docker for simple Python deployments
 
 Built for one job, PyDeploy CLI is dedicated to running Python applications continuously for Raspberry PI seamlessly with `Systemd`. No more manual `venv` setup, no hand-written unit files, and no more memorizing `systemctl` flags. My official support and recommendation channel is my Discord server. Give this repo a `star` to support my work!
 
